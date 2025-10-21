@@ -1,1 +1,6 @@
-﻿python-dotenv
+﻿SQLAlchemy
+Flask
+psycopg2
+fastapi[standard]
+requests
+
