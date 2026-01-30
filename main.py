@@ -1,47 +1,51 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi import FastAPI 
+from fastapi.responses import JSONResponse 
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.exc import IntegrityError
 from db_manager import DbManager,NotFoundError,OtherError
 from pydantic import BaseModel
+from dotenv import load_dotenv
+import os
 
-engine = "postgresql+psycopg2://postgres:***********/recipe_app"
+load_dotenv()
+engine = os.getenv("ENGINE")
 db=DbManager(engine)
 
 
 class Ingredient(BaseModel):
-    name: str
-    description: str
-    unit: str
-    calories: float
-    protein: float
-    fat: float
-    carbs: float
+    ingredient_name: str
+    ingredient_description: str
+    ingredient_unit: str
+    ingredient_calories: float
+    ingredient_protein: float
+    ingredient_fat: float
+    ingredient_carbs: float
 
 class UpdateIngredient(BaseModel):
-    name: str| None = None
-    description: str| None = None
-    unit: str| None = None
-    calories: float| None = None
-    protein: float| None = None
-    fat: float| None = None
-    carbs: float| None = None
+    ingredient_name: str| None = None
+    ingredient_description: str| None = None
+    ingredient_unit: str| None = None
+    ingredient_calories: float| None = None
+    ingredient_protein: float| None = None
+    ingredient_fat: float| None = None
+    ingredient_carbs: float| None = None
 
 
 class Recipe(BaseModel):
-    name: str
-    description: str
-    instructions: str
-    servings: int
-    cooking_time: int
-    prep_time: int
+    recipe_name: str
+    recipe_description: str
+    recipe_instructions: str
+    recipe_servings: int
+    recipe_cooking_time: int
+    recipe_prep_time: int
 
 class UpdateRecipe(BaseModel):
-    name: str| None = None
-    description: str| None = None
-    instructions: str| None = None
-    servings: int| None = None
-    cooking_time: int| None = None
-    prep_time: int| None = None
+    recipe_name: str| None = None
+    recipe_description: str| None = None
+    recipe_instructions: str| None = None
+    recipe_servings: int| None = None
+    recipe_cooking_time: int| None = None
+    recipe_prep_time: int| None = None
 
 class RecipeIngredient(BaseModel):
     ingredient_id: int
@@ -51,6 +55,21 @@ class QuantityUpdate(BaseModel):
     quantity: float
 
 app= FastAPI()
+
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+    "http://localhost:5173"
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.exception_handler(NotFoundError)
 async def not_found_exception_handler(exc: NotFoundError):
@@ -89,7 +108,10 @@ async def get_ingredient(ingredient_id:int):
 @app.post("/ingredients")
 async def add_ingredient(ingredient: Ingredient):
     with db.get_session() as session:
-        return db.add_ingredient(session,ingredient.name,ingredient.description,ingredient.unit,ingredient.calories,ingredient.protein,ingredient.fat,ingredient.carbs)
+        return db.add_ingredient(session,ingredient.ingredient_name
+                                 ,ingredient.ingredient_description,ingredient.ingredient_unit
+                                 ,ingredient.ingredient_calories,ingredient.ingredient_protein
+                                 ,ingredient.ingredient_fat,ingredient.ingredient_carbs)
 
 @app.delete("/ingredients/{ingredient_id}")
 async def delete_ingredient(ingredient_id:int):
@@ -111,7 +133,7 @@ async def all_recipes():
 @app.post("/recipes")
 async def create_recipe(recipe: Recipe):
     with db.get_session() as session:
-        return db.add_recipe(session,recipe.name,recipe.description, recipe.instructions,recipe.servings, recipe.cooking_time, recipe.prep_time)
+        return db.add_recipe(session,recipe.recipe_name,recipe.recipe_description, recipe.recipe_instructions,recipe.recipe_servings, recipe.recipe_cooking_time, recipe.recipe_prep_time)
 
 @app.get("/recipes/{recipe_id}")
 async def get_recipe(recipe_id:int):

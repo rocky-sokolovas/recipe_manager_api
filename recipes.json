@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Chicken and Broccoli Stir-Fry",
+    "description": "A quick and healthy stir-fry combining lean chicken breast with nutrient-rich broccoli and a simple brown rice base.",
+    "instructions": "1. Slice chicken breast into thin strips.\n2. Heat olive oil in a pan or wok.\n3. Add chicken and cook until browned.\n4. Add chopped broccoli and a splash of water, cooking until tender-crisp.\n5. Serve the stir-fry over cooked brown rice.\n6. Season with salt and pepper to taste.",
+    "ingredients": {
+      "Chicken Breast": 200,
+      "Broccoli": 200,
+      "Brown Rice": 100,
+      "Olive Oil": 1
+    },
+    "servings": 2,
+    "cooking_time": 15,
+    "prep_time": 10
+  },
+  {
+    "name": "Salmon and Sweet Potato Bake",
+    "description": "A simple and delicious baked dish with a great balance of protein, healthy fats, and complex carbohydrates.",
+    "instructions": "1. Preheat oven to 200°C (400°F).\n2. Chop sweet potato into cubes and toss with a drizzle of olive oil.\n3. Place sweet potato on a baking tray and roast for 15 minutes.\n4. Place the salmon fillet on the same tray and return to the oven for another 10-15 minutes, or until cooked through.\n5. Serve with a side of steamed spinach.",
+    "ingredients": {
+      "Salmon": 150,
+      "Sweet Potato": 200,
+      "Olive Oil": 1,
+      "Spinach": 100
+    },
+    "servings": 1,
+    "cooking_time": 25,
+    "prep_time": 5
+  },
+  {
+    "name": "Hearty Lentil and Spinach Soup",
+    "description": "A comforting and nourishing vegetarian soup, perfect for a light lunch or dinner, packed with fiber and protein.",
+    "instructions": "1. Rinse lentils thoroughly.\n2. In a pot, combine lentils with water or vegetable broth and bring to a boil.\n3. Reduce heat and simmer for 20-25 minutes until lentils are tender.\n4. Stir in fresh spinach and cook until wilted.\n5. Season with salt, pepper, and herbs of your choice. Serve hot.",
+    "ingredients": {
+      "Lentils": 100,
+      "Spinach": 100,
+      "Olive Oil": 1
+    },
+    "servings": 2,
+    "cooking_time": 30,
+    "prep_time": 5
+  },
+  {
+    "name": "Quinoa Bowl with Chicken and Avocado",
+    "description": "A versatile and nutrient-dense bowl that's perfect for meal prep. It features a complete protein from quinoa and healthy fats from avocado.",
+    "instructions": "1. Cook quinoa according to package instructions.\n2. Grill or pan-fry chicken breast until cooked through, then slice into strips.\n3. While the quinoa and chicken are cooking, slice the avocado.\n4. In a bowl, combine the cooked quinoa, chicken strips, and sliced avocado.\n5. Drizzle with olive oil and season to taste.",
+    "ingredients": {
+      "Quinoa": 50,
+      "Chicken Breast": 150,
+      "Avocado": 100,
+      "Olive Oil": 1
+    },
+    "servings": 1,
+    "cooking_time": 20,
+    "prep_time": 10
+  },
+  {
+    "name": "Protein-Packed Scrambled Eggs with Spinach",
+    "description": "A classic breakfast or brunch dish, supercharged with fresh spinach and served with a side of almonds for a healthy fat boost.",
+    "instructions": "1. Whisk eggs in a bowl with a splash of milk or water.\n2. Heat a non-stick pan over medium heat.\n3. Add the whisked eggs and gently push them around with a spatula.\n4. When the eggs are almost set, fold in the spinach and continue to cook until the spinach is wilted.\n5. Season with salt and pepper. Serve immediately with a handful of almonds.",
+    "ingredients": {
+      "Eggs": 2,
+      "Spinach": 50,
+      "Almonds": 28,
+      "Olive Oil": 1
+    },
+    "servings": 1,
+    "cooking_time": 5,
+    "prep_time": 2
+  }
+]

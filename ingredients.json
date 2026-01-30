@@ -1,0 +1,128 @@
+[
+  {
+    "name": "Chicken Breast",
+    "desc": "A lean cut of chicken from the pectoral muscle on the underside of the chicken. A popular source of protein.",
+    "unit": "g",
+    "calories": 165.0,
+    "protein": 31.0,
+    "fat": 3.6,
+    "carbs": 0.3
+  },
+  {
+    "name": "Broccoli",
+    "desc": "A green vegetable with a tree-like head, rich in vitamins, minerals, and fiber.",
+    "unit": "g",
+    "calories": 34.0,
+    "protein": 2.8,
+    "fat": 0.4,
+    "carbs": 6.6
+  },
+  {
+    "name": "Brown Rice",
+    "desc": "Whole-grain rice with the bran and germ intact, offering more fiber and nutrients than white rice.",
+    "unit": "g",
+    "calories": 111.0,
+    "protein": 2.6,
+    "fat": 0.9,
+    "carbs": 23.0
+  },
+  {
+    "name": "Olive Oil",
+    "desc": "A liquid fat obtained from olives, widely used in cooking and known for its healthy monounsaturated fats.",
+    "unit": "tbsp",
+    "calories": 119.0,
+    "protein": 0.0,
+    "fat": 13.5,
+    "carbs": 0.4
+  },
+  {
+    "name": "Spinach",
+    "desc": "A leafy green vegetable high in iron and vitamins A and K.",
+    "unit": "g",
+    "calories": 23.0,
+    "protein": 2.9,
+    "fat": 0.4,
+    "carbs": 3.6
+  },
+  {
+    "name": "Salmon",
+    "desc": "An oily fish known for its high-quality protein and omega-3 fatty acids.",
+    "unit": "g",
+    "calories": 182.0,
+    "protein": 20.0,
+    "fat": 11.0,
+    "carbs": 0.5
+  },
+  {
+    "name": "Sweet Potato",
+    "desc": "A starchy, sweet-tasting root vegetable that is a good source of fiber, vitamins, and antioxidants.",
+    "unit": "g",
+    "calories": 86.0,
+    "protein": 1.6,
+    "fat": 0.1,
+    "carbs": 20.0
+  },
+  {
+    "name": "Eggs",
+    "desc": "A versatile food source of high-quality protein and healthy fats.",
+    "unit": "unit",
+    "calories": 78.0,
+    "protein": 6.3,
+    "fat": 5.3,
+    "carbs": 0.6
+  },
+  {
+    "name": "Oats",
+    "desc": "A whole-grain cereal food, often eaten as oatmeal, known for its soluble fiber (beta-glucan).",
+    "unit": "g",
+    "calories": 154.0,
+    "protein": 5.2,
+    "fat": 2.8,
+    "carbs": 27.2
+  },
+  {
+    "name": "Greek Yogurt",
+    "desc": "A strained yogurt that is rich in protein and probiotics, with a thick, creamy consistency.",
+    "unit": "g",
+    "calories": 59.0,
+    "protein": 10.0,
+    "fat": 0.4,
+    "carbs": 3.6
+  },
+  {
+    "name": "Lentils",
+    "desc": "An edible legume, a good source of plant-based protein, fiber, and various minerals.",
+    "unit": "g",
+    "calories": 116.0,
+    "protein": 9.0,
+    "fat": 0.4,
+    "carbs": 20.0
+  },
+  {
+    "name": "Avocado",
+    "desc": "A fruit with a large pit and a creamy texture, rich in healthy monounsaturated fats and fiber.",
+    "unit": "g",
+    "calories": 160.0,
+    "protein": 2.0,
+    "fat": 14.7,
+    "carbs": 8.5
+  },
+  {
+    "name": "Almonds",
+    "desc": "A popular nut, a good source of healthy fats, protein, vitamin E, and magnesium.",
+    "unit": "g",
+    "calories": 164.0,
+    "protein": 6.0,
+    "fat": 14.0,
+    "carbs": 6.0
+  },
+  {
+    "name": "Quinoa",
+    "desc": "A gluten-free grain that is a complete protein, containing all nine essential amino acids.",
+    "unit": "g",
+    "calories": 120.0,
+    "protein": 4.4,
+    "fat": 1.9,
+    "carbs": 21.3
+  }
+]

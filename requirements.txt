@@ -1,4 +1,5 @@
 ﻿SQLAlchemy
+dotenv
 Flask
 psycopg2
 fastapi[standard]
