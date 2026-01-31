@@ -29,11 +29,6 @@ class Ingredient(Base):
     ingredient_name: Mapped[str] = mapped_column(String(50), unique=True)
     ingredient_description: Mapped[str] = mapped_column(String(200),nullable=True)
     ingredient_unit: Mapped[str] = mapped_column(String(10),nullable=True)
-    # Nutritional information (macros)
-    ingredient_calories: Mapped[float] = mapped_column(nullable=True)
-    ingredient_protein: Mapped[float] = mapped_column(nullable=True)
-    ingredient_fat: Mapped[float] = mapped_column(nullable=True)
-    ingredient_carbs: Mapped[float] = mapped_column(nullable=True)
     # Relationship to the association table (RecipeIngredient)
     recipe_associations: Mapped[list["RecipeIngredient"]] = relationship(
         back_populates="ingredient",
@@ -56,6 +51,11 @@ class Recipe(Base):
     # Time attributes (in minutes)
     recipe_cooking_time: Mapped[int] = mapped_column(nullable=True)
     recipe_prep_time: Mapped[int] = mapped_column(nullable=True)
+    # Nutritional information (macros)
+    recipe_calories: Mapped[float] = mapped_column(nullable=True)
+    recipe_protein: Mapped[float] = mapped_column(nullable=True)
+    recipe_fat: Mapped[float] = mapped_column(nullable=True)
+    recipe_carbs: Mapped[float] = mapped_column(nullable=True)
     # Relationship to the association table (RecipeIngredient)
     ingredient_associations: Mapped[list["RecipeIngredient"]] = relationship(
         back_populates="recipe",
@@ -139,8 +139,7 @@ class DbManager:
 
     def add_ingredient(self,session:Session
                         ,ingredient_name:str,ingredient_description:str,ingredient_unit:str
-                        ,ingredient_calories:float,ingredient_protein:float,ingredient_fat:float
-                        ,ingredient_carbs:float)->int| None:
+                        )->int| None:
         """
         Adds a new ingredient to the database.
 
@@ -149,10 +148,6 @@ class DbManager:
             ingredient_name (str): The unique name of the ingredient.
             ingredient_description (str): A description of the ingredient.
             ingredient_unit (str): The standard unit for the ingredient (e.g., 'g', 'ml').
-            ingredient_calories (float): Calories per unit.
-            ingredient_protein (float): Protein per unit.
-            ingredient_fat (float): Fat per unit.
-            ingredient_carbs (float): Carbohydrates per unit.
 
         Returns:
             int | None: The ID of the newly created ingredient if successful, otherwise None.
@@ -160,11 +155,7 @@ class DbManager:
         new_ingredient=Ingredient(
                 ingredient_name=ingredient_name,
                 ingredient_description=ingredient_description,
-                ingredient_unit=ingredient_unit,
-                ingredient_calories=ingredient_calories,
-                ingredient_protein=ingredient_protein,
-                ingredient_fat=ingredient_fat,
-                ingredient_carbs=ingredient_carbs
+                ingredient_unit=ingredient_unit
             )
         session.add(new_ingredient)
         if self.commit_session(session):
@@ -275,7 +266,8 @@ class DbManager:
 
     def add_recipe(self,session:Session,recipe_name:str,recipe_description:str
                     ,recipe_instructions:str,recipe_servings:int,recipe_cooking_time:int
-                    ,recipe_prep_time:int)->int| None:
+                    ,recipe_prep_time:int,recipe_calories: float,recipe_protein: float
+                    ,recipe_fat: float,recipe_carbs:float)->int| None:
         """
         Adds a new recipe to the database.
 
@@ -297,7 +289,11 @@ class DbManager:
                 recipe_instructions=recipe_instructions,
                 recipe_servings=recipe_servings,
                 recipe_cooking_time=recipe_cooking_time,
-                recipe_prep_time=recipe_prep_time
+                recipe_prep_time=recipe_prep_time,
+                recipe_calories=recipe_calories,
+                recipe_protein=recipe_protein,
+                recipe_fat=recipe_fat,
+                recipe_carbs=recipe_carbs
             )
         session.add(new_recipe)
         if self.commit_session(session):
@@ -706,57 +702,6 @@ class DbManager:
                 # Apply the multiplier
                 updated_quantities[recipe_ingredient]=recipe_quantity*serving_multiplier
             return updated_quantities
-
-
-    def get_recipe_macros(self, session:Session,recipe_id:int,servings:int)->list[float]:
-        """
-        Calculates the total caloric/macro nutritional values for a recipe based on a target serving size.
-
-        The list order is [calories, protein, fat, carbs].
-
-        Args:
-            session (Session): The active SQLAlchemy session.
-            recipe_id (int): The ID of the recipe.
-            servings (int): The target number of servings.
-
-        Raises:
-            NotFoundError: If the recipe is not found.
-
-        Returns:
-            list[float]: A list of calculated total macro values.
-        """
-        try:
-            recipe=self.get_recipe_by_id(session,recipe_id)
-        except NotFoundError as e:
-            raise NotFoundError(e)
-        else:
-            # Initialize [Calories, Protein, Fat, Carbs]
-            macro_values=[0.0]*4
-            recipe_serving=recipe.recipe_servings
-            # Calculate the serving multiplier
-            serving_multiplier=(1/recipe_serving)*servings
-            recipe_ingredients=self.get_all_recipe_ingredients(session,recipe_id)
-
-            for ingredient_data in recipe_ingredients:
-                # Extract macro values from the Ingredient object
-                macro_ingredient = [
-                    ingredient_data["ingredient"].ingredient_calories,
-                    ingredient_data["ingredient"].ingredient_protein,
-                    ingredient_data["ingredient"].ingredient_fat,
-                    ingredient_data["ingredient"].ingredient_carbs
-                ]
-                # Get the base quantity from the association table
-                base_quantity = ingredient_data["quantity"]
-
-                # Calculate the scaling factor for the ingredient itself
-                ingredient_scale_factor = base_quantity * serving_multiplier
-
-                for i in range(len(macro_ingredient)):
-                    # Add the scaled macro value to the running total, rounding to 2 decimal places
-                    # Assumes ingredient macros are per-unit, and quantity is the number of units.
-                    macro_values[i] += round(macro_ingredient[i] * ingredient_scale_factor, 2)
-            return macro_values
-
 
     def generate_meal_plan(self, session:Session,num_recipes:int)->set[Recipe]:
         """

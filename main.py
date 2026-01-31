@@ -16,19 +16,11 @@ class Ingredient(BaseModel):
     ingredient_name: str
     ingredient_description: str
     ingredient_unit: str
-    ingredient_calories: float
-    ingredient_protein: float
-    ingredient_fat: float
-    ingredient_carbs: float
 
 class UpdateIngredient(BaseModel):
     ingredient_name: str| None = None
     ingredient_description: str| None = None
     ingredient_unit: str| None = None
-    ingredient_calories: float| None = None
-    ingredient_protein: float| None = None
-    ingredient_fat: float| None = None
-    ingredient_carbs: float| None = None
 
 
 class Recipe(BaseModel):
@@ -38,6 +30,10 @@ class Recipe(BaseModel):
     recipe_servings: int
     recipe_cooking_time: int
     recipe_prep_time: int
+    recipe_calories: float
+    recipe_protein: float
+    recipe_fat: float
+    recipe_carbs: float
 
 class UpdateRecipe(BaseModel):
     recipe_name: str| None = None
@@ -46,6 +42,10 @@ class UpdateRecipe(BaseModel):
     recipe_servings: int| None = None
     recipe_cooking_time: int| None = None
     recipe_prep_time: int| None = None
+    recipe_calories: float| None = None
+    recipe_protein: float| None = None
+    recipe_fat: float| None = None
+    recipe_carbs: float| None = None
 
 class RecipeIngredient(BaseModel):
     """Pydantic model for adding an ingredient to a recipe."""
@@ -131,9 +131,9 @@ async def add_ingredient(ingredient: Ingredient):
     """
     with db.get_session() as session:
         return db.add_ingredient(session,ingredient.ingredient_name
-                                 ,ingredient.ingredient_description,ingredient.ingredient_unit
-                                 ,ingredient.ingredient_calories,ingredient.ingredient_protein
-                                 ,ingredient.ingredient_fat,ingredient.ingredient_carbs)
+                                 ,ingredient.ingredient_description
+                                 ,ingredient.ingredient_unit
+                                 )
 
 @app.delete("/ingredients/{ingredient_id}")
 async def delete_ingredient(ingredient_id:int):
@@ -175,7 +175,11 @@ async def create_recipe(recipe: Recipe):
     Raises 409 if a recipe with the same name already exists.
     """
     with db.get_session() as session:
-        return db.add_recipe(session,recipe.recipe_name,recipe.recipe_description, recipe.recipe_instructions,recipe.recipe_servings, recipe.recipe_cooking_time, recipe.recipe_prep_time)
+        return db.add_recipe(session,recipe.recipe_name,recipe.recipe_description
+                             , recipe.recipe_instructions,recipe.recipe_servings
+                             , recipe.recipe_cooking_time, recipe.recipe_prep_time
+                             , recipe.recipe_calories, recipe.recipe_protein
+                             , recipe.recipe_fat, recipe.recipe_carbs)
 
 @app.get("/recipes/{recipe_id}")
 async def get_recipe(recipe_id:int):
